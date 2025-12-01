@@ -1,0 +1,193 @@
+/* ====================================
+   VARIÁVEIS DE CORES - FÁCIL MANUTENÇÃO
+   ==================================== */
+:root {
+    --bg-body: #F6F3F8;
+    --primary: #094D92;        /* Azul profundo Kaingang */
+    --accent: #D94F1E;         /* Laranja-terra avermelhado */
+    --gold: #E6B800;           /* Dourado suave */
+    --green: #2D6A4F;          /* Verde floresta */
+    --dark-brown: #2F2504;
+    --light-bg: #FFFFFF;
+    --text: #2d2d2d;
+    --text-light: #555;
+    --shadow: rgba(0, 0, 0, 0.12);
+    --shadow-lg: rgba(0, 0, 0, 0.2);
+}
+
+/* ====================================
+   RESET E BASE
+   ==================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-body);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--primary);
+    margin: 2rem 0 1rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    color: var(--accent);
+    position: relative;
+    padding-bottom: 0.8rem;
+    margin: 3rem auto 2.5rem;
+    max-width: 1100px;
+    text-align: center;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    border-radius: 3px;
+}
+
+/* ====================================
+   LAYOUT PRINCIPAL
+   ==================================== */
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin: 4rem 0;
+    flex-wrap: wrap;
+}
+
+.flex.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Imagem sempre cresce mais */
+.img-container {
+    flex: 1.2;
+    min-width: 300px;
+}
+
+.img-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px var(--shadow-lg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.img-container img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px var(--shadow-lg);
+}
+
+/* Caixa de texto */
+.info {
+    flex: 1;
+    min-width: 300px;
+    background: var(--light-bg);
+    padding: 2rem;
+    border-radius: 16px;
+    border-left: 8px solid var(--primary);
+    box-shadow: 0 10px 30px var(--shadow);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    transition: transform 0.3s ease;
+}
+
+.info:hover {
+    transform: translateY(-5px);
+}
+
+/* Cores alternativas para seções */
+.info.green { border-left-color: var(--green); }
+.info.brown { border-left-color: var(--dark-brown); background: #fdf8f5; }
+.info.accent { border-left-color: var(--accent); }
+
+/* Imagem full */
+.img-full {
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.img-full img {
+    max-width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px var(--shadow-lg);
+}
+
+/* Fundo colorido para seções específicas */
+.back-green { background: linear-gradient(135deg, #6db146 0%, #D0E8D0 100%); padding: 4rem 0; margin: 4rem 0; }
+.back-brown { background: linear-gradient(135deg, #F9F4F0 0%, #F0E6E0 100%); padding: 4rem 0; margin: 4rem 0; }
+
+/* Canvas de ondas */
+#ondas {
+    display: block;
+    width: 100%;
+    height: 80px;
+    margin: 2rem 0 4rem;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, #2F2504, #352200);
+    color: #ffffff;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-top: 6px solid var(--accent);
+    margin-top: 6rem;
+}
+
+/* ====================================
+   RESPONSIVIDADE
+   ==================================== */
+@media (max-width: 992px) {
+    .flex {
+        flex-direction: column !important;
+    }
+    .img-container {
+        order: -1;
+    }
+    .info {
+        text-align: justify;
+    }
+}
+
+@media (max-width: 576px) {
+    .info {
+        padding: 1.5rem;
+        font-size: 1.05rem;
+    }
+    h2 {
+        padding: 0 1rem;
+    }
+}
