@@ -4,7 +4,8 @@
 :root {
     --bg-body: #F6F3F8;
     --primary: #094D92;        /* Azul profundo Kaingang */
-    --accent: #D94F1E;         /* Laranja-terra avermelhado */
+    --accent: #D94F1E;
+    --cl: #000000 ;        /* Laranja-terra avermelhado */
     --gold: #E6B800;           /* Dourado suave */
     --green: #2D6A4F;          /* Verde floresta */
     --dark-brown: #2F2504;
@@ -34,6 +35,240 @@ body {
     font-size: 1.1rem;
 }
 
+
+
+/* ====================================
+   CARROSSEL CENTRALIZADO E MAIOR
+   ==================================== */
+.slide {
+    padding: 100px 0;
+    background: linear-gradient(to bottom, #f9f4f0, #F6F3F8);
+    text-align: center;
+}
+
+.carousel-container {
+    width: 100%;
+    max-width: 1400px;        /* Aumentado para telas grandes */
+    margin: 0 auto;           /* Centraliza perfeitamente */
+    padding: 0 20px;
+    position: relative;
+    perspective: 1200px;
+    overflow: hidden;
+}
+
+.carousel-track {
+    width: 100%;
+    height: 500px;            /* Altura maior para imagens largas */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Cards muito maiores – ideal para imagens largas */
+.card {
+    position: absolute;
+    width: 800px;             /* Muito maior que antes */
+    height: 450px;            /* Proporção ~16:9 */
+    border-radius: 24px;
+    overflow: hidden;
+
+    transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    backface-visibility: hidden;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* Perfeito para imagens largas ou verticais */
+    transition: all 0.9s ease;
+}
+
+/* Card central – destaque máximo */
+.card.center {
+    z-index: 20;
+    transform: scale(1.15) translateZ(50px);
+
+}
+
+.card.center img {
+    filter: brightness(1.05);
+}
+
+/* Lados próximos */
+.card.left-1,
+.card.right-1 {
+    z-index: 10;
+    transform: translateX(-350px) scale(0.85) translateZ(-100px);
+    opacity: 0.9;
+}
+
+.card.right-1 {
+    transform: translateX(350px) scale(0.85) translateZ(-100px);
+}
+
+/* Lados mais distantes */
+.card.left-2,
+.card.right-2 {
+    z-index: 5;
+    transform: translateX(-600px) scale(0.7) translateZ(-250px);
+    opacity: 0.5;
+}
+
+.card.right-2 {
+    transform: translateX(600px) scale(0.7) translateZ(-250px);
+}
+
+.card.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Setas maiores e mais visíveis */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(217, 79, 30, 0.9);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 30;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255,255,255,0.3);
+}
+
+.nav-arrow:hover {
+    background: #D94F1E;
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.nav-arrow.left  { left: 30px; }
+.nav-arrow.right { right: 30px; }
+
+/* Responsividade – ainda funciona em celular */
+@media (max-width: 992px) {
+    .card {
+        width: 600px;
+        height: 340px;
+    }
+    .card.left-1, .card.right-1 {
+        transform: translateX(-250px) scale(0.8);
+    }
+    .card.right-1 { transform: translateX(250px) scale(0.8); }
+    .nav-arrow { width: 50px; height: 50px; font-size: 1.6rem; }
+}
+
+@media (max-width: 680px) {
+    .card {
+        width: 90vw;
+        height: 52vw;
+        max-height: 300px;
+    }
+    .card.center { transform: scale(1.05); }
+    .card.left-1, .card.right-1,
+    .card.left-2, .card.right-2 { opacity: 0.4; }
+    .nav-arrow.left  { left: 10px; }
+    .nav-arrow.right { right: 10px; }
+}
+
+/* ====================================
+   CAIXA DE INFORMAÇÃO DO CARROSSEL – ESTÉTICA 2025
+   ==================================== */
+.dish-info {
+    max-width: 1000px;
+    margin: 4rem auto 2rem;
+    padding-bottom:  10px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 36px;
+    box-shadow: 
+        0 25px 60px rgba(0, 0, 0, 0.16),
+        0 0 0 10px rgba(217, 79, 30, 0.15);
+    border: 1px solid rgba(217, 79, 30, 0.3);
+    backdrop-filter: blur(14px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.dish-info::before {
+    background: linear-gradient(135deg, 
+        rgba(9, 77, 146, 0.08) 0%,   /* azul profundo */
+        rgba(217, 79, 30, 0.08) 100%); /* laranja */
+}
+
+/* Título do carrossel – mesmo gradiente forte do site */
+.dish-name {
+    font-size: clamp(2.4rem, 5vw, 3.6rem) !important;
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.2rem;
+    line-height: 1.15;
+}
+
+/* Descrição do carrossel – cor escura elegante, combina perfeitamente */
+.dish-description {
+    font-size: 1.32rem;
+    line-height: 1.85;
+    color: #2d2d2d;           /* tom escuro quente, igual ao texto principal */
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.96;
+    font-weight: 400;
+}
+
+
+
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .dish-info {
+        margin: 3rem 1.5rem 1.5rem;
+        padding: 2rem 1.8rem;
+        border-radius: 24px;
+    }
+    .dish-name { font-size: 2.2rem !important; }
+    .dish-description { font-size: 1.15rem; }
+}
+
+
+   /* Complemento para os h3 dentro das caixas de texto */
+        .info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        /* Fundo marrom claro (#fdf8f5) → texto marrom escuro */
+        .info.brown h3 {
+            color: #2F2504;
+        }
+
+        /* Fundo verde escuro → texto branco/dourado claro */
+        .info.green h3 {
+            color: #005512; /* dourado */
+        }
+
+        /* Fundo branco/padrão → texto azul profundo */
+        .info:not(.brown):not(.green) h3 {
+            color: var(--primary);
+        }
+
 h1, h2, h3 {
     font-weight: 700;
     line-height: 1.2;
@@ -47,8 +282,8 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    color: var(--accent);
+    font-size: clamp(3rem, 4vw, 2.4rem);
+    color: var(--cl);
     position: relative;
     padding-bottom: 0.8rem;
     margin: 3rem auto 2.5rem;
@@ -93,6 +328,7 @@ h2::after {
 .img-container {
     flex: 1.2;
     min-width: 300px;
+    
 }
 
 .img-container img {
@@ -101,11 +337,6 @@ h2::after {
     border-radius: 16px;
     box-shadow: 0 15px 35px var(--shadow-lg);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.img-container img:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 45px var(--shadow-lg);
 }
 
 /* Caixa de texto */
@@ -131,27 +362,109 @@ h2::after {
 .info.brown { border-left-color: var(--dark-brown); background: #fdf8f5; }
 .info.accent { border-left-color: var(--accent); }
 
+h2.green{
+    color: #F6F3F8;
+}
+
+h2.green::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: white;
+    border-radius: 3px;
+}
+
+h2.blue{
+    color: var(--primary);
+}
+
+h2.blue::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), #6aa5e0);
+    border-radius: 3px;
+}
+
 /* Imagem full */
-.img-full {
+.full {
     text-align: center;
-    margin: 4rem 0;
+    margin-bottom: 10px;
 }
 
-.img-full img {
-    max-width: 100%;
-    border-radius: 18px;
-    box-shadow: 0 20px 50px var(--shadow-lg);
+/* ====================================
+   PADRONIZAÇÃO DA SEÇÃO VERDE
+   ==================================== */
+
+/* Fundo verde + texto claro */
+.back-green {
+    background: linear-gradient(135deg, #1a5a3a 0%, #0e750e 100%);
+    padding: 5rem 0;
+    color: #f0f0f0;
+    margin-top: 30px;
 }
 
-/* Fundo colorido para seções específicas */
-.back-green { background: linear-gradient(135deg, #6db146 0%, #D0E8D0 100%); padding: 4rem 0; margin: 4rem 0; }
+/* Títulos da seção verde */
+.back-green h2.green,
+.back-green h3 {
+    color: #E6B800 !important; /* dourado suave – fica lindo no verde escuro */
+}
+
+/* Caixas de texto na seção verde – padronizadas com as outras */
+.back-green .info.green {
+    background: rgba(0, 0, 0, 0.25);
+    border-left: 8px solid var(--gold);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    margin: 2rem auto;
+    max-width: 1000px;
+}
+
+/* Imagens dentro da seção verde – mesmo estilo das outras */
+.back-green .img-container {
+    flex: 1.2;
+    min-width: 300px;
+    text-align: center;
+}
+
+.back-green .img-container img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 4px solid rgba(230, 184, 0, 0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.back-green .img-container img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+}
+
+/* Ajuste no flex dentro da seção verde */
+.back-green .flex {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
 .back-brown { background: linear-gradient(135deg, #F9F4F0 0%, #F0E6E0 100%); padding: 4rem 0; margin: 4rem 0; }
 
 /* Canvas de ondas */
 #ondas {
     display: block;
     width: 100%;
-    height: 80px;
+
     margin: 2rem 0 4rem;
 }
 
@@ -191,3 +504,36 @@ footer {
         padding: 0 1rem;
     }
 }
+
+/* ====================================
+GOOGLE FONTS – ESTÉTICA INDÍGENA
+==================================== */
+:root {
+--font-title: 'Gotu', sans-serif; /* Títulos com estética orgânica e indígena */
+--font-subtitle: 'Noto Serif', serif; /* Subtítulos formais e inclusivos */
+}
+
+
+h1, h2 {
+font-family: var(--font-title);
+letter-spacing: 1px;
+}
+
+
+h3 {
+    font-family: var(--font-title);
+}
+
+
+body {
+font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+
+/* Abaixo permanece TODO seu CSS original (sem alterações estruturais)
+apenas a parte das fontes foi ajustada acima */
+
+
+/* ====================================
+VARIÁVEIS DE CORES - FÁCIL MANUTENÇÃO
+==================================== */
